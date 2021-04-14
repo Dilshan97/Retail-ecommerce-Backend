@@ -12,7 +12,7 @@ class Product extends Model
     protected $table = "products";
 
     protected $fillable = [
-        "product_category_id",
+        "product_categories_id",
         "product_name",
         "product_description",
         "stock",
@@ -21,6 +21,6 @@ class Product extends Model
 
     public function product_category()
     {
-        return $this->hasOne('App\Models\ProductCategory');
+        return $this->belongsTo('App\Models\ProductCategory');
     }
 }

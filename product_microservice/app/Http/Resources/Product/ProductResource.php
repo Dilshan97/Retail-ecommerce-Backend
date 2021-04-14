@@ -23,7 +23,8 @@ class ProductResource extends JsonResource
             'product_description' => $this->product_description,
             'product_image' => asset('storage').$this->product_image,
             'stock' => $this->stock,
-            'price' => $this->price
+            'price' => $this->price,
+            'category' => $this->product_category->category_name
         ];
     }
 }
