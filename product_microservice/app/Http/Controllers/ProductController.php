@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -105,6 +106,21 @@ class ProductController extends Controller
             return new ProductResource($product);
         } else {
             return "no product found";
+        }
+    }
+
+    public function get_products_by_category($slug)
+    {
+        $category = ProductCategory::where('category_slug', $slug)->first();
+
+        if($category) {
+             if(count($category->products) > 0) {
+                 return new ProductCollection($category->products);
+             } else {
+                 return "no products found";
+             }
+        } else {
+            return 'product category not found';
         }
     }
 }
