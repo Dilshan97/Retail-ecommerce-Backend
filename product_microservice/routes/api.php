@@ -26,11 +26,11 @@ Route::group(['prefix' => 'product'], function () {
     Route::put('/update/{id}', [ProductController::class, 'update_product']);
     Route::delete('/{id}', [ProductController::class, 'delete_product']);
     Route::get('/{id}', [ProductController::class, 'get_product']);
+});
 
-    Route::group(['prefix' => 'category'], function () {
-        Route::get('/', [ProductCategoryController::class, 'get_product_categories']);
-        Route::post('/create', [ProductCategoryController::class, 'create_product_category']);
-    });
+Route::group(['prefix' => 'category'], function () {
+    Route::get('/', [ProductCategoryController::class, 'get_product_categories']);
+    Route::post('/create', [ProductCategoryController::class, 'create_product_category']);
 });
 
 
