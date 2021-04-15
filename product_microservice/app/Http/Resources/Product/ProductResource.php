@@ -11,7 +11,7 @@ class ProductResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -21,7 +21,8 @@ class ProductResource extends JsonResource
             'product_category_id' => $this->product_category_id,
             'product_name' => $this->product_name,
             'product_description' => $this->product_description,
-            'product_image' => asset('storage').$this->product_image,
+            'product_image' => asset('storage') . $this->product_image,
+            'product_slug' => $this->product_slug,
             'stock' => $this->stock,
             'price' => $this->price,
             'category' => $this->product_category->category_name

@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -44,6 +45,7 @@ class ProductController extends Controller
         $product->product_description = $request->product_description;
         $product->stock = $request->stock;
         $product->price = $request->price;
+        $product->product_slug = Str::slug(Str::lower($request->product_slug), "-");
 
         if ($product->save()) {
             return new ProductResource($product);
@@ -60,6 +62,7 @@ class ProductController extends Controller
             $product->product_description = $request->product_description;
             $product->stock = $request->stock;
             $product->price = $request->price;
+            $product->product_slug = Str::slug(Str::lower($request->product_slug), "-");
 
             if ($request->product_image) {
                 $image_parts = explode(";base64,", $request->product_image);
@@ -121,6 +124,17 @@ class ProductController extends Controller
              }
         } else {
             return 'product category not found';
+        }
+    }
+
+    public function get_product_by_slug($slug)
+    {
+        $product = Product::where('product_slug', '=', $slug)->first();
+
+        if ($product) {
+            return new ProductResource($product);
+        } else {
+            return "no product found";
         }
     }
 }
