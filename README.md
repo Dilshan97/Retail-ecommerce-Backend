@@ -8,6 +8,12 @@ This e-commerce system consist of the three main microservices.
  1. Customer Service
  2. Product Service
  3. Order Service
+ 
+ 
+#### Architecture Diagram
+
+ ![enter image description here](https://github.com/Dilshan97/Retail-e-commerce-Backend/raw/master/diagram.png)
+
 
 ## Setup Local Environment
 
