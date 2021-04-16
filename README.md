@@ -52,6 +52,9 @@ You can run these three microservices using two ways.
 	
  2. Virtual host [this article may be helpfull for create virtual-host](https://medium.com/@ajtech.mubasheer/configure-a-virtual-host-for-laravel-project-in-xampp-for-windows-10-d3f0068e7e1b)
 
+## API Documentation
+[Retail E-commerce Documentation](https://documenter.getpostman.com/view/15417642/TzJrCzGe)
+
 ## External libraries that used
 
  1. [laravel passport](https://github.com/laravel/passport)
