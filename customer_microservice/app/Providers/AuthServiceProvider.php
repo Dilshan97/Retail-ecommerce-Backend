@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\UserLevel;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -27,5 +28,19 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        try {
+            $levels = UserLevel::all();
+            $levels_array = [];
+
+            foreach ($levels as $level) {
+                $levels_array[$level->scope] = $level->scope;
+            }
+
+            Passport::tokensCan($levels_array);
+
+        } catch (\Throwable $e) {
+            return true;
+        }
     }
 }

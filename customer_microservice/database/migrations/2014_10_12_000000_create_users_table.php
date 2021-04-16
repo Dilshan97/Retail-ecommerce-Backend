@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('user_level_id')->nullable();
+            $table->foreign('user_level_id')->references('id')->on('user_levels');
             $table->rememberToken();
             $table->timestamps();
         });

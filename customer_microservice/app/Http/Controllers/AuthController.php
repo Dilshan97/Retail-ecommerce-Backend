@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Auth\AuthResource;
 use App\Models\User;
+use App\Models\UserLevel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +28,7 @@ class AuthController extends Controller
         $customer->email = $request->email;
         $customer->username = $request->username;
         $customer->password = Hash::make($request->password);
+        $customer->user_level_id = UserLevel::where('scope', 'customer')->first()->id;
 
         if ($customer->save()) {
             return response()->json([
@@ -59,10 +61,13 @@ class AuthController extends Controller
 
         $customer = $request->user();
 
-
         if ($customer) {
-            $tokenData = $customer->createToken('My Token');
+            $tokenData = $customer->createToken('My Token', [$customer->userLevel->scope]);
             $token = $tokenData->token;
+
+            if ($request->remember_me) {
+                $token->expires_at = Carbon::now()->addWeeks(1);
+            }
 
             if ($token->save()) {
                 return response()->json([
