@@ -21,7 +21,7 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'cart_id' => $this->cart_id,
-            'status' => $this->status,
+            'status' => str_replace('_', ' ', $this->status),
             'customer_id' => $this->customer_id,
             'items' => ItemResource::collection($this->order_items),
             'payment' => new PaymentResource($this->payment)
