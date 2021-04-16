@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class OrderCollection extends ResourceCollection
 {
+    public static $wrap = 'order_list';
+
     /**
      * Transform the resource collection into an array.
      *
@@ -14,6 +16,8 @@ class OrderCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'order_list' => OrderResource::collection($this->collection)
+        ];
     }
 }

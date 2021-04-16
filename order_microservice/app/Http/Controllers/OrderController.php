@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Order\OrderCollection;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
@@ -11,7 +12,13 @@ class OrderController extends Controller
 {
     public function get_orders()
     {
+        $orders = Order::all();
 
+        if(count($orders) > 0) {
+            return new OrderCollection($orders);
+        } else {
+            return 'no orders found';
+        }
     }
 
     public function create_order(Request $request)
