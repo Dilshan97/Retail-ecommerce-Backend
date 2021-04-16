@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function get_products()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'DESC')->get();
 
         if (count($products) > 0) {
             return new ProductCollection($products);
@@ -28,8 +28,8 @@ class ProductController extends Controller
     {
         $product = new Product();
 
-        if ($request->product_image) {
-            $image_parts = explode(";base64,", $request->product_image);
+        if ($request->product_image_source) {
+            $image_parts = explode(";base64,", $request->product_image_source);
             $image_type_aux = explode("image/", $image_parts[0]);
             $image = base64_decode($image_parts[1]);
             $image_name = uniqid() . '.' . $image_type_aux[1];
@@ -45,7 +45,7 @@ class ProductController extends Controller
         $product->product_description = $request->product_description;
         $product->stock = $request->stock;
         $product->price = $request->price;
-        $product->product_slug = Str::slug(Str::lower($request->product_slug), "-");
+        $product->product_slug = Str::slug(Str::lower($request->product_name), "-");
 
         if ($product->save()) {
             return new ProductResource($product);
@@ -62,10 +62,10 @@ class ProductController extends Controller
             $product->product_description = $request->product_description;
             $product->stock = $request->stock;
             $product->price = $request->price;
-            $product->product_slug = Str::slug(Str::lower($request->product_slug), "-");
+            $product->product_slug = Str::slug(Str::lower($request->product_name), "-");
 
-            if ($request->product_image) {
-                $image_parts = explode(";base64,", $request->product_image);
+            if ($request->product_image_source) {
+                $image_parts = explode(";base64,", $request->product_image_source);
                 $image_type_aux = explode("image/", $image_parts[0]);
                 $image = base64_decode($image_parts[1]);
                 $image_name = uniqid() . '.' . $image_type_aux[1];
