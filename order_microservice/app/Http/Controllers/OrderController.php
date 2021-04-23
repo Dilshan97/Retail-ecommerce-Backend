@@ -6,7 +6,9 @@ use App\Http\Resources\Order\OrderCollection;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -27,7 +29,6 @@ class OrderController extends Controller
         $payment->card_holder_name = $request->card_dtails['name'];
         $payment->card_number = $request->card_dtails['cNumber'];
         $payment->expiry_date = $request->card_dtails['expire_date'];
-        $payment->amount = 1000;
 
         if($payment->save()) {
             $order = new Order();
@@ -48,14 +49,15 @@ class OrderController extends Controller
                         $item->save();
                     }
 
-                    return $order;
+                    $response = Http::post(config('app.ORDER_API').'/product/maintain_product', ['items' => $request->items]);
+                  
+                    if($response->successful()) {
+                        return $order;
+                    }
                 }
             }
         }
     }
 
-    public function get_order_by_customer()
-    {
-
-    }
+    
 }

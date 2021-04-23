@@ -18,7 +18,6 @@ class CreatePaymentsTable extends Migration
             $table->string('card_holder_name');
             $table->string('card_number');
             $table->string('expiry_date');
-            $table->integer('amount');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -136,5 +137,10 @@ class ProductController extends Controller
         } else {
             return "no product found";
         }
+    }
+
+    public function maintain_product(Request $request)
+    {
+        Log::notice($request->all());
     }
 }

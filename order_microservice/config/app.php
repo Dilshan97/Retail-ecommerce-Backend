@@ -230,4 +230,5 @@ return [
 
     ],
 
+    'ORDER_API' => env('ORDER_API')
 ];
