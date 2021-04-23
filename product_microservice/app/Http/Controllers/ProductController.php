@@ -141,6 +141,10 @@ class ProductController extends Controller
 
     public function maintain_product(Request $request)
     {
-        Log::notice($request->all());
+        foreach($request->items as $item) {
+            $product = Product::find($item['product']['id']);
+            $product->stock = ($product->stock - $item['quantity']);
+            $product->save();
+        }
     }
 }
