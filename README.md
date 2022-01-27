@@ -1,5 +1,5 @@
 
-# Arimac Retail Store
+# Retail Store Backend
 
 This is the microservices-based e-commerce solution that customers can register to the system and he or she can buy retails product from the store. the Store admin can manage the products, orders, and the customer.
 
